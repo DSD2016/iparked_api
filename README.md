@@ -55,6 +55,13 @@ In laradock folder add this section to 'applications' section in docker-compose.
         volumes:
             - ../iparked_api:/var/www/api
 ```
+
+Change INSTALL_AEROSPIKE_EXTENSION variable to false in workspace/Dockerfile
+```
+# ARG INSTALL_AEROSPIKE_EXTENSION=true
+ARG INSTALL_AEROSPIKE_EXTENSION=false
+```
+
 #### Edit Nginx configuration
 In laradock/nginx/sites folder edit default.conf to look like this.
 ```
@@ -111,12 +118,6 @@ server {
         deny all;
     }
 }
-```
-
-Change INSTALL_AEROSPIKE_EXTENSION variable to false in workspace/Dockerfile
-```
-# ARG INSTALL_AEROSPIKE_EXTENSION=true
-ARG INSTALL_AEROSPIKE_EXTENSION=false
 ```
 
 #### Start docker
