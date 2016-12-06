@@ -1,6 +1,6 @@
-# iParked web application
+# iparked_api
 
-iParked uses Bluetooth LE beacons to help you find your car in GPS denied parking lot such as an underground garage.
+iParked web API for REST communication with mobile application
 
 ## Contents
 * [Environment setup](#installation)
