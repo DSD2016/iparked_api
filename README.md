@@ -48,14 +48,69 @@ git clone https://github.com/DSD2016/iparked_api
 ```
 #### Edit Laradock configuration
 
-Change 'applications' section in docker-compose.yml to look like this
+In laradock folder add this section to 'applications' section in docker-compose.yml
 ```
-applications:
+    api:
         image: tianon/true
         volumes:
-            - ../iparked_web:/var/www
             - ../iparked_api:/var/www/api
-#            - ../:/var/www/sample
+```
+#### Edit Nginx configuration
+In laradock/nginx/sites folder edit default.conf to look like this.
+```
+server {
+
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
+
+    server_name laradock;
+    root /var/www/public;
+    index index.php index.html index.htm;
+
+    location / {
+         try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php =404;
+        fastcgi_pass php-upstream;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+```
+Create api.conf in laradock/nginx/sites folder so it looks like this.
+```
+server {
+
+    listen 80;
+    listen [::]:80;
+
+    server_name iparked_api.dev;
+    root /var/www/api/public;
+    index index.php index.html index.htm;
+
+    location / {
+         try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php =404;
+        fastcgi_pass php-upstream;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
 ```
 
 Change INSTALL_AEROSPIKE_EXTENSION variable to false in workspace/Dockerfile
@@ -76,6 +131,11 @@ If docker won't start, log out and log in.
 In laradock\ folder start docker image
 ```
 docker-compose up -d nginx mysql
+```
+
+If there were changes in nginx configuration and files, do this
+```
+docker-compose up --build -d nginx mysql
 ```
 
 #### Start bash in workspace
