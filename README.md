@@ -159,6 +159,7 @@ cd workspace
 
 # for Linux
 docker-compose exec workspace bash
+cd api
 
 # for Windows
 docker exec -it {workspace-container-id} bash
