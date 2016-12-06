@@ -119,6 +119,12 @@ server {
     }
 }
 ```
+#### Edit local /etc/hosts
+
+Add web site to /etc/hosts on the system you are deploing to so that it looks like this.
+```
+127.0.0.1               localhost.localdomain localhost iparked_api.dev 
+```
 
 #### Start docker
 
