@@ -56,6 +56,14 @@ In laradock folder add this section to 'applications' section in docker-compose.
             - ../iparked_api:/var/www/api
 ```
 
+Configure all other volumes_from: in application blocks in docker-compose.yml so that they include api.
+```
+volumes_from:
+#   - applications REMOVE
+    - web
+    - api  # ADD
+```
+
 Change INSTALL_AEROSPIKE_EXTENSION variable to false in workspace/Dockerfile
 ```
 # ARG INSTALL_AEROSPIKE_EXTENSION=true
