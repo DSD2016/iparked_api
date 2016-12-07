@@ -1,4 +1,4 @@
-# iparked_api
+# iParked API [![Build Status](https://travis-ci.org/DSD2016/iparked_api.svg?branch=master)](https://travis-ci.org/DSD2016/iparked_api)
 
 iParked web API for REST communication with mobile application
 
