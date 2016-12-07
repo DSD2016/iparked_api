@@ -38,7 +38,6 @@ class GarageController extends Controller
                             "latitude" => "15.262",
                             "minor" => "46546",
                             "blutoothAddress" => "89:FA:77:3A:55:11:98",
-                            "range" => "13"
                         ],
                         [
                             "id" => "945654",
@@ -47,7 +46,6 @@ class GarageController extends Controller
                             "latitude" => "15.266",
                             "minor" => "46548",
                             "blutoothAddress" => "89:FA:77:3A:55:22:75",
-                            "range" => "10"
                         ]
                     ]
                 ]
