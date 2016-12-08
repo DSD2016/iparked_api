@@ -12,6 +12,10 @@ class GarageController extends Controller
         $garage = DB::table('garages')
             ->where('id', $id)
             ->get();
+        if($garage->count() == 0)
+        {
+            return "No luck!";
+        }
         $floors = DB::table('floors')
             ->where('garage_id', $id)
             ->get();

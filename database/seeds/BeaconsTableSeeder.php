@@ -13,11 +13,29 @@ class BeaconsTableSeeder extends Seeder
     {
         DB::table('beacons')->insert([
             'floor_id' => 1,
-            'name' => 'beacon1',
+            'name' => 'HMSoft1',
             'latitude' => 45.4,
             'longitude' => 15.4,
-            'minor_number' => 20,
-            'bluetooth_adress' => '89:FA:77:3A:55:11:98',
+            'minor_number' => 5,
+            'bluetooth_adress' => '20:C3:8F:F2:C0:66',
+        ]);
+        
+        DB::table('beacons')->insert([
+            'floor_id' => 1,
+            'name' => 'HMSoft2',
+            'latitude' => 45.6,
+            'longitude' => 15.6,
+            'minor_number' => 6,
+            'bluetooth_adress' => 'B4:99:4C:52:7F:31',
+        ]);
+        
+        DB::table('beacons')->insert([
+            'floor_id' => 2,
+            'name' => 'beacon3',
+            'latitude' => 45.4,
+            'longitude' => 15.4,
+            'minor_number' => 3,
+            'bluetooth_adress' => '89:FA:77:3A:55:22:91',
         ]);
         
         DB::table('beacons')->insert([
@@ -25,8 +43,8 @@ class BeaconsTableSeeder extends Seeder
             'name' => 'beacon2',
             'latitude' => 45.6,
             'longitude' => 15.6,
-            'minor_number' => 30,
-            'bluetooth_adress' => '89:FA:77:3A:55:22:75',
+            'minor_number' => 4,
+            'bluetooth_adress' => '89:FA:77:3A:55:22:95',
         ]);
     }
 }
