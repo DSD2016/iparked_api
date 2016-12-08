@@ -18,7 +18,6 @@ class BeaconsTableSeeder extends Seeder
             'longitude' => 15.4,
             'minor_number' => 20,
             'bluetooth_adress' => '89:FA:77:3A:55:11:98',
-            'beacon_timestamp' => '2001-1-1 00:00:00',
         ]);
         
         DB::table('beacons')->insert([
@@ -28,7 +27,6 @@ class BeaconsTableSeeder extends Seeder
             'longitude' => 15.6,
             'minor_number' => 30,
             'bluetooth_adress' => '89:FA:77:3A:55:22:75',
-            'beacon_timestamp' => '2001-1-1 00:00:00',
         ]);
     }
 }

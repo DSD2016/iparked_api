@@ -24,7 +24,8 @@ class CreateGarageTable extends Migration
             $table->integer('num_floors');
             $table->integer('garage_capacity');
             $table->string('type');
-            $table->string('UUID');
+            $table->string('UUID')->unique();
+            $table->string('city');
             $table->dateTime('garage_timestamp');
             
         });

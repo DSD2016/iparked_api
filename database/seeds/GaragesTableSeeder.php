@@ -20,6 +20,7 @@ class GaragesTableSeeder extends Seeder
             'garage_capacity' => 500,
             'type' => 'indoor',
             'UUID' => '1234-57-434',
+            'city' => 'Zagreb',
             'garage_timestamp' => '2001-1-1 00:00:00',
         ]);
     }
