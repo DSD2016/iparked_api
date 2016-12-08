@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(array("prefix" => "api", "before" => "auth.basic"), function()
+Route::group(array('prefix' => 'api', 'before' => 'auth.basic'), function()
 {
-    Route::resource("uuid", "GarageController");
+    Route::resource('id', 'GarageController');
 });
