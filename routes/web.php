@@ -10,8 +10,3 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-
-Route::group(array("prefix" => "api", "before" => "auth.basic"), function()
-{
-    Route::resource("uuid", "GarageController");
-});

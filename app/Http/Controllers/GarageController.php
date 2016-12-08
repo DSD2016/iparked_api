@@ -3,53 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GarageController extends Controller
 {
-    public function show($uuid)
+    public function show($id)
     {
-        return response()->json([
-            "garage" => [
-                "id" => $uuid,
-                "name" => "shopping center",
-                "latitude" => "45.236",
-                "longitude" => "15.258",
-                "numberOfFloors" => "6",
-                "garageCapacity" => "589",
-                "type" => "indoor",
-                "UUID" => "87:68:76:54:65:41",
-                "garageTimestamp" => "64654654654654126",
-                "levels" => [
-                    "id" => "879",
-                    "name" => "level-5",
-                    "levelTimestamp" => "984",
-                    "major" => "65652",
-                    "angle" => "23.4",
-                    "sizeX" => "31",
-                    "sizeY" => "62",
-                    "zoomLevel" => "19", 
-                    "levelPlan" => "getfloorplan.php?garage=5464654&level=879",
-                    "levelCapacity" => "55",
-                    "beacons" => [
-                        [
-                            "id" => "645654",
-                            "name" => "beacon12",
-                            "longitude" => "45.238",
-                            "latitude" => "15.262",
-                            "minor" => "46546",
-                            "blutoothAddress" => "89:FA:77:3A:55:11:98",
-                        ],
-                        [
-                            "id" => "945654",
-                            "name" => "beacon13",
-                            "longitude" => "45.237",
-                            "latitude" => "15.266",
-                            "minor" => "46548",
-                            "blutoothAddress" => "89:FA:77:3A:55:22:75",
-                        ]
-                    ]
-                ]
-            ]
-        ]);
+        $garage = DB::table('garages')
+            ->where('id', $id)
+            ->get();
+        if($garage->count() == 0)
+        {
+            return "No luck!";
+        }
+        $floors = DB::table('floors')
+            ->where('garage_id', $id)
+            ->get();
+        $floors = json_decode($floors, true);
+        $i = 0;
+        foreach($floors as $floor)
+        {
+            $beacons = DB::table('beacons')
+                ->where('floor_id', $floor['id'])
+                ->get();
+            $floors[$i]['beacons'] = $beacons;
+            $i++;
+        }
+        $garage = json_decode($garage, true);
+        $garage[0]['floors'] = $floors;
+        return response()->json($garage);
     }
 }
