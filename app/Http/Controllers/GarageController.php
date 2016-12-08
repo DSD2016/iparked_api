@@ -12,20 +12,21 @@ class GarageController extends Controller
         $garage = DB::table('garages')
             ->where('id', $id)
             ->get();
-        $garage = json_decode($garage);
         $floors = DB::table('floors')
             ->where('garage_id', $id)
             ->get();
-        $floors = json_decode($floors);
-        $beacons = '';
-        foreach($floors as $floor){
-            $beacons . DB::table('beacons')
-                ->where('floor_id', $floor->id)
+        $floors = json_decode($floors, true);
+        $i = 0;
+        foreach($floors as $floor)
+        {
+            $beacons = DB::table('beacons')
+                ->where('floor_id', $floor['id'])
                 ->get();
+            $floors[$i]['beacons'] = $beacons;
+            $i++;
         }
-        $floors['beacons'] = $beacons;
-        $floors = json_encode($floors);
-        $garage = json_encode($garage);
+        $garage = json_decode($garage, true);
+        $garage[0]['floors'] = $floors;
         return response()->json($garage);
     }
 }
