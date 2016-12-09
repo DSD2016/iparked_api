@@ -39,8 +39,8 @@ class BeaconsTableSeeder extends Seeder
         ]);
         
         DB::table('beacons')->insert([
-            'floor_id' => 1,
-            'name' => 'beacon2',
+            'floor_id' => 2,
+            'name' => 'beacon4',
             'latitude' => 45.6,
             'longitude' => 15.6,
             'minor_number' => 4,
