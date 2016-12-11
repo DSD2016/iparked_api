@@ -5,8 +5,6 @@ use Illuminate\Database\Seeder;
 class UsersTableSeeder extends Seeder{
 
     public function run(){
-        DB::table('users')->delete();
-
 
         DB::table('users')->insert([
             'first_name'    => 'John',

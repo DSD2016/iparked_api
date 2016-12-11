@@ -17,7 +17,7 @@ class FloorsTableSeeder extends Seeder
        //     'latitude' => 45.800700,
        //     'longitude' => 15.971215,
             'latitude' => 71.7111949,
-            'longitude' => -42.6001872
+            'longitude' => -42.6001872,
             'angle' => 87,
             'size_X' => 31,
             'size_Y' => 62,
