@@ -31,6 +31,6 @@ class GarageController extends Controller
         }
         $garage = json_decode($garage, true);
         $garage[0]['floors'] = $floors;
-        return response()->json($garage);
+        return response()->json($garage[0]);
     }
 }
