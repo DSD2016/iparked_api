@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class FloorPlanController extends Controller
 {
@@ -35,7 +37,25 @@ class FloorPlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $id = $request->input('id');
+
+        $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:100000',]);
+
+   
+
+   
+        $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix().'floor_plans'; // upload path
+        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+        $fileName = 'floor_plan_'.$id.'.'.$extension; // renameing image
+        if( file_exists( $storagePath .'/'.$fileName) ) {
+            Storage::delete($storagePath .'/'.$fileName);;
+        }
+        $request->image->move($storagePath, $fileName);
+
+        return response()->json(['result' => 'Success', 'image name' => $fileName])
+                         ->header('Access-Control-Allow-Origin', 'http://iparked_web.dev')
+                         ->header('Access-Control-Allow-Methods', 'POST'); 
     }
 
     /**
@@ -70,7 +90,7 @@ class FloorPlanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
     }
 
     /**
