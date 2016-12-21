@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class FloorPlanController extends Controller
 {
@@ -38,6 +39,15 @@ class FloorPlanController extends Controller
     public function store(Request $request)
     {
 
+        $provided_token = $request->input( 'api_token' );
+        $stored_token= DB::table('users')
+            ->where('api_token', $provided_token)
+            ->get();
+        
+        if($stored_token->count() == 0) {
+            return response()->json(array('message'=>'No luck!'), 500);
+        }
+    
         $id = $request->input('id');
 
         $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:100000',]);
