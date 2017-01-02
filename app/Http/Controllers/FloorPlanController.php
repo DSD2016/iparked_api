@@ -64,9 +64,7 @@ class FloorPlanController extends Controller
                 
         $request->image->move($storagePath, $fileName);
         
-        return response()->json(array('message'=>$fileName."  ".$storagePath), 200);
-
-        return response()->json(['result' => 'Success', 'image name' => $fileName], 200)
+        return response()->json(['result' => 'Success', 'image name' => $fileName])
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net')
                          ->header('Access-Control-Allow-Methods', 'POST'); 
     }
