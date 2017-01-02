@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
             'company'       => 'ACME',
             'password'      => Hash::make('password'),
             'token'         => str_random(64),
+            'api_token'     => str_random(64),
             'activated'     => true
         ]);
 
@@ -28,6 +29,7 @@ class UsersTableSeeder extends Seeder
             'company'       => 'ACME',
             'password'      => Hash::make('janesPassword'),
             'token'         => str_random(64),
+            'api_token'     => str_random(64),
             'activated'     => true
         ]);
     }
