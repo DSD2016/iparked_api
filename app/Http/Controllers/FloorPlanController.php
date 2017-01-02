@@ -58,11 +58,12 @@ class FloorPlanController extends Controller
         $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
         $fileName = 'floor_plan_'.$id.'.'.$extension; // renameing image
         
-        return response()->json(array('message'=>$fileName."  ".$storagePath), 200);
-
         if( file_exists( $storagePath .'/'.$fileName) ) {
             Storage::delete($storagePath .'/'.$fileName);;
         }
+        
+        return response()->json(array('message'=>$fileName."  ".$storagePath), 200);
+        
         $request->image->move($storagePath, $fileName);
 
         return response()->json(['result' => 'Success', 'image name' => $fileName], 200)
