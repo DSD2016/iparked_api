@@ -61,10 +61,10 @@ class FloorPlanController extends Controller
         if( file_exists( $storagePath .'/'.$fileName) ) {
             Storage::delete($storagePath .'/'.$fileName);;
         }
+                
+        $request->image->move($storagePath, $fileName);
         
         return response()->json(array('message'=>$fileName."  ".$storagePath), 200);
-        
-        $request->image->move($storagePath, $fileName);
 
         return response()->json(['result' => 'Success', 'image name' => $fileName], 200)
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net')
