@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken()->nullable();
             $table->boolean('activated')->default(false);
             $table->string('token')->nullable();
+            $table->string('api_token')->nullable();
         });
     }
 
