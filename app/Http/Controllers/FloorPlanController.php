@@ -45,7 +45,9 @@ class FloorPlanController extends Controller
             ->get();
         
         if($stored_token->count() == 0) {
-            return response()->json(array('message'=>'No luck!'), 500);
+            return response()->json(array('message'=>'No luck!'), 500)
+                            ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net')
+                            ->header('Access-Control-Allow-Methods', 'POST'); 
         }
     
         $id = $request->input('id');
@@ -64,7 +66,7 @@ class FloorPlanController extends Controller
         $request->image->move($storagePath, $fileName);
 
         return response()->json(['result' => 'Success', 'image name' => $fileName])
-                         ->header('Access-Control-Allow-Origin', 'http://iparked_web.dev')
+                         ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net')
                          ->header('Access-Control-Allow-Methods', 'POST'); 
     }
 
