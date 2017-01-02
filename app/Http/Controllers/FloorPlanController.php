@@ -53,9 +53,8 @@ class FloorPlanController extends Controller
         $id = $request->input('id');
 
         $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:100000',]);
-
-   
-
+        
+        return response()->json(array('message'=>'affada'), 200)
    
         $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix().'floor_plans'; // upload path
         $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
