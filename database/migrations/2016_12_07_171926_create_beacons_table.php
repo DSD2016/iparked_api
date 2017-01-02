@@ -22,7 +22,7 @@ class CreateBeaconsTable extends Migration
             $table->double('longitude');
             $table->integer('minor_number');
             $table->unique('minor_number','floor_id');
-            $table->string('bluetooth_adress');
+            $table->string('bluetooth_address');
         });
     }
 
