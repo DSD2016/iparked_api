@@ -33,4 +33,31 @@ class GarageController extends Controller
         $garage[0]['floors'] = $floors;
         return response()->json($garage[0]);
     }
+    
+    public function show($uuid)
+    {
+        $garage = DB::table('garages')
+            ->where('UUID', $uuid)
+            ->get();
+        if($garage->count() == 0)
+        {
+            return "No luck!";
+        }
+        $floors = DB::table('floors')
+            ->where('garage_id', $id)
+            ->get();
+        $floors = json_decode($floors, true);
+        $i = 0;
+        foreach($floors as $floor)
+        {
+            $beacons = DB::table('beacons')
+                ->where('floor_id', $floor['id'])
+                ->get();
+            $floors[$i]['beacons'] = $beacons;
+            $i++;
+        }
+        $garage = json_decode($garage, true);
+        $garage[0]['floors'] = $floors;
+        return response()->json($garage[0]);
+    }
 }
