@@ -13,5 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::resource('id', 'GarageController');
+Route::get('id/{id}', 'GarageController@showId');
+Route::get('uuid/{uuid}', 'GarageController@showUUID');
 Route::resource('floorplan', 'FloorPlanController');
