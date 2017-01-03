@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class GarageController extends Controller
 {
-    public function show($id)
+    public function showId($id)
     {
-        $garage = DB::table('garages')
+        $garages = DB::table('garages')
             ->where('id', $id)
             ->get();
-        if($garage->count() == 0)
+        if($garages->count() == 0)
         {
             return "No luck!";
         }
@@ -29,22 +29,23 @@ class GarageController extends Controller
             $floors[$i]['beacons'] = $beacons;
             $i++;
         }
-        $garage = json_decode($garage, true);
-        $garage[0]['floors'] = $floors;
-        return response()->json($garage[0]);
+        $garages = json_decode($garages, true);
+        $garages[0]['floors'] = $floors;
+        return response()->json($garages[0]);
     }
     
-    public function show($uuid)
+    public function showUUID($uuid)
     {
-        $garage = DB::table('garages')
+        $garages = DB::table('garages')
             ->where('UUID', $uuid)
             ->get();
-        if($garage->count() == 0)
+        if($garages->count() == 0)
         {
             return "No luck!";
         }
+        $garage = json_decode($garages, true);
         $floors = DB::table('floors')
-            ->where('garage_id', $id)
+            ->where('garage_id', $garage[0]['id'])
             ->get();
         $floors = json_decode($floors, true);
         $i = 0;
@@ -56,8 +57,8 @@ class GarageController extends Controller
             $floors[$i]['beacons'] = $beacons;
             $i++;
         }
-        $garage = json_decode($garage, true);
-        $garage[0]['floors'] = $floors;
-        return response()->json($garage[0]);
+        $garages = json_decode($garages, true);
+        $garages[0]['floors'] = $floors;
+        return response()->json($garages[0]);
     }
 }
