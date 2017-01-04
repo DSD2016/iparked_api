@@ -53,18 +53,17 @@ class FloorPlanController extends Controller
         $id = $request->input('id');
 
         $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:100000',]);
-
-   
-
-   
+           
         $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix().'floor_plans'; // upload path
         $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
         $fileName = 'floor_plan_'.$id.'.'.$extension; // renameing image
+        
         if( file_exists( $storagePath .'/'.$fileName) ) {
             Storage::delete($storagePath .'/'.$fileName);;
         }
+                
         $request->image->move($storagePath, $fileName);
-
+        
         return response()->json(['result' => 'Success', 'image name' => $fileName])
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
                          ->header('Access-Control-Allow-Methods', 'POST'); 
