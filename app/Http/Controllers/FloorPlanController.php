@@ -46,7 +46,7 @@ class FloorPlanController extends Controller
             ->get();
         
         if($stored_token->count() == 0) {
-            return response()->json(array('message'=>'No luck!'), 500)
+            return response()->json(array('message'=>'No luck!', 'provided_token'=> $provided_token), 500)
                             ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
                             ->header('Access-Control-Allow-Methods', 'POST'); 
         }
@@ -116,7 +116,7 @@ class FloorPlanController extends Controller
         //
     }
     
-       public function deletePlan(Request $request)
+    public function deletePlan(Request $request)
     {
 
         $provided_token = $request->input( 'api_token' );
@@ -125,7 +125,7 @@ class FloorPlanController extends Controller
             ->get();
         
         if($stored_token->count() == 0) {
-            return response()->json(array('message'=>'No luck!'), 500)
+            return response()->json(array('message'=>'No luck!','provided_token'=> $provided_token), 500)
                             ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
                             ->header('Access-Control-Allow-Methods', 'POST'); 
         }

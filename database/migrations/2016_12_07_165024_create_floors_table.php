@@ -27,7 +27,7 @@ class CreateFloorsTable extends Migration
             $table->string('floor_plan');
             $table->integer('floor_capacity');
             $table->integer('major_number');
-            $table->unique('major_number','garage_id');
+            $table->unique(['major_number','garage_id']);
             $table->dateTime('floor_timestamp');
             $table->integer('floor_number');
             $table->double('latitude1');
