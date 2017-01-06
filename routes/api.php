@@ -16,3 +16,4 @@ use Illuminate\Http\Request;
 Route::get('id/{id}', 'GarageController@showId');
 Route::get('uuid/{uuid}', 'GarageController@showUUID');
 Route::resource('floorplan', 'FloorPlanController');
+Route::post('removefloorplan', 'FloorPlanController@deletePlan');

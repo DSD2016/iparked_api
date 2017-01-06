@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class FloorPlanController extends Controller
 {
@@ -113,5 +114,32 @@ class FloorPlanController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+       public function deletePlan(Request $request)
+    {
+
+        $provided_token = $request->input( 'api_token' );
+        $stored_token= DB::table('users')
+            ->where('api_token', $provided_token)
+            ->get();
+        
+        if($stored_token->count() == 0) {
+            return response()->json(array('message'=>'No luck!'), 500)
+                            ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
+                            ->header('Access-Control-Allow-Methods', 'POST'); 
+        }
+    
+        $id = $request->input('id');
+
+           
+        $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix().'floor_plans'; // upload path
+        $fileName = 'floor_plan_'.$id.'.png'; // renameing image
+        
+        File::delete($storagePath .'/'.$fileName);;
+
+        return response()->json(['result' => 'Success', 'image name' => $storagePath .'/'.$fileName])
+                         ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
+                         ->header('Access-Control-Allow-Methods', 'POST'); 
     }
 }
