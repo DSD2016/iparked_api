@@ -40,7 +40,7 @@ class FloorPlanController extends Controller
     {
 
         $provided_token = $request->input( 'api_token' );
-        $stored_token= DB::table('users')
+        $stored_token = DB::table('users')
             ->where('api_token', $provided_token)
             ->get();
         
@@ -64,6 +64,12 @@ class FloorPlanController extends Controller
                 
         $request->image->move($storagePath, $fileName);
         
+        DB::table('floors')
+            ->where('id', $id)
+            ->update([
+            'floor_plan' => 'floor_plans/'.$fileName
+        ]);
+        
         return response()->json(array('result' => 'Success', 'image name' => $fileName))
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
                          ->header('Access-Control-Allow-Methods', 'POST'); 
@@ -78,7 +84,10 @@ class FloorPlanController extends Controller
     public function show($id)
     {
         $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
-        return response()->file($storagePath.'/floor_plans/floor_plan_'.$id.'.png');
+        $floor = DB::table('floors')
+            ->where('id', $id)
+            ->first();
+        return response()->file($storagePath.$floor->floor_plan);
     }
 
     /**
@@ -119,7 +128,7 @@ class FloorPlanController extends Controller
     {
 
         $provided_token = $request->input( 'api_token' );
-        $stored_token= DB::table('users')
+        $stored_token = DB::table('users')
             ->where('api_token', $provided_token)
             ->get();
         
@@ -131,11 +140,13 @@ class FloorPlanController extends Controller
     
         $id = $request->input('id');
 
-        $fileName = 'floor_plan_'.$id.'.png'; // renameing image
+        $floor = DB::table('floors')
+            ->where('id', $id)
+            ->first();
         
-        Storage::delete('floor_plans/'.$fileName);
+        Storage::delete($floor->floor_plan);
 
-        return response()->json(array('result' => 'Success', 'image name' => 'floor_plans/'.$fileName), 200)
+        return response()->json(array('result' => 'Success', 'image name' => $floor->floor_plan), 200)
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
                          ->header('Access-Control-Allow-Methods', 'POST'); 
     }
