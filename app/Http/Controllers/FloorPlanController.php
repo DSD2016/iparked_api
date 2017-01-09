@@ -64,7 +64,7 @@ class FloorPlanController extends Controller
                 
         $request->image->move($storagePath, $fileName);
         
-        return response()->json(['result' => 'Success', 'image name' => $fileName])
+        return response()->json(array('result' => 'Success', 'image name' => $fileName))
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
                          ->header('Access-Control-Allow-Methods', 'POST'); 
     }
@@ -135,7 +135,7 @@ class FloorPlanController extends Controller
         
         Storage::delete('floor_plans/'.$fileName);
 
-        return response()->json(['result' => 'Success', 'image name' => $storagePath .'/'.$fileName])
+        return response()->json(array('result' => 'Success', 'image name' => 'floor_plans/'.$fileName), 200)
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
                          ->header('Access-Control-Allow-Methods', 'POST'); 
     }
