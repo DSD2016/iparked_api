@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class FloorPlanController extends Controller
 {
@@ -60,7 +59,7 @@ class FloorPlanController extends Controller
         $fileName = 'floor_plan_'.$id.'.'.$extension; // renameing image
         
         if( file_exists( $storagePath .'/'.$fileName) ) {
-            Storage::delete($storagePath .'/'.$fileName);;
+            Storage::delete('floor_plans/'.$fileName);;
         }
                 
         $request->image->move($storagePath, $fileName);
@@ -132,11 +131,9 @@ class FloorPlanController extends Controller
     
         $id = $request->input('id');
 
-           
-        $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix().'floor_plans'; // upload path
         $fileName = 'floor_plan_'.$id.'.png'; // renameing image
         
-        File::delete($storagePath .'/'.$fileName);;
+        Storage::delete('floor_plans/'.$fileName);
 
         return response()->json(['result' => 'Success', 'image name' => $storagePath .'/'.$fileName])
                          ->header('Access-Control-Allow-Origin', 'http://iparked.sytes.net') //iparked.sytes.net iparked_web.dev
